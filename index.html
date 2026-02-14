@@ -294,7 +294,7 @@
             <section class="capture-zone">
                 <video id="video" class="viewfinder" autoplay playsinline></video>
                 <canvas id="canvas" class="photo-canvas"></canvas>
-                <img id="result-img" class="viewfinder" style="display: none;">
+                <div id="result-img" class="viewfinder" style="display: none;"></div>
                 <div class="frame-footer">
                     <div class="meta-line"><span class="meta-label">DATE:</span> 14.02.2026</div>
                     <div class="meta-line"><span class="meta-label">REFRACTED SUBJECT:</span> BEAUTIFUL</div>
@@ -389,8 +389,10 @@
                 
                 // Switch video for captured image
                 const dataUrl = canvas.toDataURL('image/png');
-                resultImg.src = dataUrl;
-                resultImg.style.objectFit = 'contain';
+                resultImg.style.backgroundImage = `url(${dataUrl})`;
+                resultImg.style.backgroundSize = 'contain';
+                resultImg.style.backgroundPosition = 'center';
+                resultImg.style.backgroundRepeat = 'no-repeat';
                 
                 video.style.display = 'none';
                 resultImg.style.display = 'block';
