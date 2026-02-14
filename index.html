@@ -381,35 +381,16 @@
             if (captureBtn.innerText.toUpperCase().includes('SEAL')) {
                 const context = canvas.getContext('2d');
                 
-                // Capture exactly what is shown on screen (WYSIWYG)
-                const width = video.clientWidth;
-                const height = video.clientHeight;
-                const scale = window.devicePixelRatio || 2;
+                // Capture raw video frame (prevents stretching)
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
                 
-                canvas.width = width * scale;
-                canvas.height = height * scale;
-                
-                // Fill background to match viewfinder style
-                context.fillStyle = "#ffffff";
-                context.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Calculate dimensions to fit video within canvas (object-fit: contain)
-                const videoRatio = video.videoWidth / video.videoHeight;
-                const canvasRatio = canvas.width / canvas.height;
-                let dw, dh, dx, dy;
-
-                if (videoRatio > canvasRatio) {
-                    dw = canvas.width; dh = canvas.width / videoRatio; dx = 0; dy = (canvas.height - dh) / 2;
-                } else {
-                    dh = canvas.height; dw = canvas.height * videoRatio; dy = 0; dx = (canvas.width - dw) / 2;
-                }
-                
-                context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, dx, dy, dw, dh);
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
                 
                 // Switch video for captured image
                 const dataUrl = canvas.toDataURL('image/png');
                 resultImg.src = dataUrl;
-                resultImg.style.objectFit = 'fill';
+                resultImg.style.objectFit = 'contain';
                 
                 video.style.display = 'none';
                 resultImg.style.display = 'block';
