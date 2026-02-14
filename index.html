@@ -382,11 +382,12 @@
                 const context = canvas.getContext('2d');
                 
                 // Capture exactly what is shown on screen (WYSIWYG)
-                const rect = video.getBoundingClientRect();
+                const width = video.clientWidth;
+                const height = video.clientHeight;
                 const scale = window.devicePixelRatio || 2;
                 
-                canvas.width = rect.width * scale;
-                canvas.height = rect.height * scale;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
                 
                 // Fill background to match viewfinder style
                 context.fillStyle = "#ffffff";
@@ -408,6 +409,7 @@
                 // Switch video for captured image
                 const dataUrl = canvas.toDataURL('image/png');
                 resultImg.src = dataUrl;
+                resultImg.style.objectFit = 'fill';
                 
                 video.style.display = 'none';
                 resultImg.style.display = 'block';
