@@ -24,8 +24,8 @@
             background-color: #f2eee8;
             color: var(--ink);
             font-family: 'Outfit', sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -211,9 +211,10 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
+            .main-container { height: auto; margin: 20px 0; }
             .vellum-sheet { flex-direction: column; height: auto; padding: 20px; }
-            .capture-zone { height: 350px; flex: none; }
-            .note-zone { border-left: none; border-top: 1px solid rgba(0,0,0,0.05); padding: 30px 0; }
+            .capture-zone { height: 40vh; min-height: 250px; flex: none; }
+            .note-zone { border-left: none; border-top: 1px solid rgba(0,0,0,0.05); padding: 20px 0; }
         }
 
         /* Frame Footer Styles */
